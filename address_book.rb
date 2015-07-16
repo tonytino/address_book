@@ -8,6 +8,21 @@ class AddressBook
         @contacts = []
     end
 
+    def find_by_name(name)
+        results = []
+        search = name.downcase
+        contacts.each do |contact|
+            results << contact if contact.full_name.downcase.include?(search)
+        end
+        puts "Name search results (#{search}):"
+        results.each do |contact|
+            puts contact.to_s('full_name')
+            contact.print_phone_numbers
+            contact.print_addresses
+            puts
+        end
+    end
+
     def print_contact_list
         puts "Contact List:"
         contacts.each do |contact|
@@ -32,4 +47,5 @@ tony.add_address("School",
 )
 
 address_book.contacts << tony
-address_book.print_contact_list
+
+address_book.find_by_name("z")
