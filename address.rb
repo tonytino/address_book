@@ -2,8 +2,13 @@ class Address
 
     attr_accessor :kind, :street_1, :street_2, :city, :state, :postal_code
 
-    def initialize()
-
+    def initialize(kind = nil, street_1 = nil, street_2 = nil, city = nil, state = nil, postal_code = nil)
+        @kind = kind
+        @street_1 = street_1
+        @street_2 = street_2
+        @city = city
+        @state = state
+        @postal_code = postal_code
     end
 
     def to_s(format = 'short')
@@ -24,14 +29,3 @@ class Address
         address
     end
 end
-
-dbc = Address.new
-dbc.kind = "School"
-dbc.street_1 = "663 Folsom St."
-dbc.city = "San Francisco"
-dbc.state = "CA"
-dbc.postal_code = "94107"
-
-puts dbc.to_s('short')
-puts
-puts dbc.to_s('long')
