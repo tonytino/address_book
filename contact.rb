@@ -85,36 +85,3 @@ class Contact
         addresses.each { |address| puts address.to_s('short') }
     end
 end
-
-anthony = Contact.new
-anthony.first_name = "Anthony"
-anthony.last_name = "Hernandez"
-anthony.add_phone_number("Home", "555-555-5555")
-anthony.add_phone_number("Work", "012-345-6789")
-anthony.add_address("School",
-                    "663 Folsom St.",
-                    "San Francisco",
-                    "CA",
-                    "94107"
-)
-puts anthony.to_s("full_name")
-anthony.print_addresses
-anthony.print_phone_numbers
-
-puts
-
-tony = Contact.new
-tony.first_name = "Anthony"
-tony.middle_name = "T"
-tony.last_name = "Hernandez"
-tony.add_phone_number("Home", "555-555-5555")
-tony.add_phone_number("Work", "012-345-6789")
-tony.add_address("School",
-                    "663 Folsom St.",
-                    "San Francisco",
-                    "CA",
-                    "94107"
-)
-puts tony.to_s("last_first")
-tony.print_addresses
-tony.print_phone_numbers
