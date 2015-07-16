@@ -1,1 +1,3 @@
-# address_book
+# Object-Oriented Address Book Application (Ruby)
+
+*Currently Under Initial Development*
