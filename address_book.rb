@@ -8,9 +8,25 @@ class AddressBook
         @contacts = []
     end
 
+    # Clears the content on the screen.
+    def clear_screen!
+        print "\e[2J"
+    end
+
+    # Moves the "cursor" back to the upper left.
+    def move_to_home!
+        print "\e[H"
+    end
+
+    def reset_screen!
+        clear_screen!
+        move_to_home!
+    end
+
     def run
         loop do
-            puts 'Address Book Menu'
+            reset_screen!
+            puts 'Address Book Main Menu'
             puts 'a: Add Contact'
             puts 'p: Print Address Book'
             puts 'e: Exit'
@@ -24,12 +40,14 @@ class AddressBook
             when 'p'
                 print_contact_list
             when 'e'
+                reset_screen!
                 break
             end
         end
     end
 
     def add_contact
+        reset_screen!
         contact = Contact.new
 
         puts "All contacts must have either a first or last name."
@@ -41,10 +59,50 @@ class AddressBook
         contact.last_name = gets.chomp
 
         if contact.first_name == "" && contact.last_name == ""
-            puts "Oops! That contact didn't have a first or last name and couldn't be added."
+            puts "Oops! That contact didn't have a first or last name. Please try again."
+            add_contact
         else
+            loop do
+                reset_screen!
+                puts "Add phone number or address? "
+                puts "p: Add phone number"
+                puts "a: Add Address"
+                puts "b: Back to Main Menu"
+
+                input = gets.chomp.downcase
+
+                case input
+                when 'p'
+                    reset_screen!
+                    phone = PhoneNumber.new
+                    print "Please provide a type (Home, Work, School, etc.): "
+                    phone.kind = gets.chomp
+                    print "Number: "
+                    phone.number = gets.chomp
+                    contact.phone_numbers << phone
+                when 'a'
+                    reset_screen!
+                    address = Address.new
+                    print "Please provide a type (Home, Work, School, etc.): "
+                    address.kind = gets.chomp
+                    print "Address line 1: "
+                    address.street_1 = gets.chomp
+                    print "Address line 2: "
+                    address.street_2 = gets.chomp
+                    print "City: "
+                    address.city = gets.chomp
+                    print "State: "
+                    address.state = gets.chomp
+                    print "Postal Code: "
+                    address.postal_code = gets.chomp
+                    contact.addresses << address
+                when 'b'
+                    break
+                end
+            end
+
             contacts << contact
-            puts "Successfully added."
+            puts "Contact successfully added."
         end
 
     end
@@ -89,13 +147,18 @@ class AddressBook
     end
 
     def print_contact_list
+        reset_screen!
         puts "Contact List:"
         contacts.each do |contact|
             puts contact.to_s('last_first')
         end
+
+        print "Press enter at any time to return to the Main Menu: "
+        gets
     end
 
     def print_results(search, results)
+        reset_screen!
         puts search
 
         results.each do |contact|
@@ -110,22 +173,3 @@ end
 
 address_book = AddressBook.new
 address_book.run
-
-# tony = Contact.new
-# tony.first_name = "Anthony"
-# tony.middle_name = "T"
-# tony.last_name = "Hernandez"
-# tony.add_phone_number("Home", "555-555-5555")
-# tony.add_phone_number("Work", "012-345-6789")
-# tony.add_address("School",
-#                     "663 Folsom St.",
-#                     "San Francisco",
-#                     "CA",
-#                     "94107"
-# )
-
-# address_book.contacts << tony
-
-# address_book.find_by_name("z")
-# address_book.find_by_phone_number("5")
-# address_book.find_by_address("663 Folsom St.")
