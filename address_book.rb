@@ -8,6 +8,19 @@ class AddressBook
         @contacts = []
     end
 
+    def run
+        loop do
+            puts 'Address Book'
+            puts 'e: Exit'
+            print 'Enter your choice: '
+            input = gets.chomp.downcase
+            case input
+            when 'e'
+                break
+            end
+        end
+    end
+
     def find_by_name(name)
         results = []
         search = name.downcase
@@ -68,22 +81,23 @@ class AddressBook
 end
 
 address_book = AddressBook.new
+address_book.run
 
-tony = Contact.new
-tony.first_name = "Anthony"
-tony.middle_name = "T"
-tony.last_name = "Hernandez"
-tony.add_phone_number("Home", "555-555-5555")
-tony.add_phone_number("Work", "012-345-6789")
-tony.add_address("School",
-                    "663 Folsom St.",
-                    "San Francisco",
-                    "CA",
-                    "94107"
-)
+# tony = Contact.new
+# tony.first_name = "Anthony"
+# tony.middle_name = "T"
+# tony.last_name = "Hernandez"
+# tony.add_phone_number("Home", "555-555-5555")
+# tony.add_phone_number("Work", "012-345-6789")
+# tony.add_address("School",
+#                     "663 Folsom St.",
+#                     "San Francisco",
+#                     "CA",
+#                     "94107"
+# )
 
-address_book.contacts << tony
+# address_book.contacts << tony
 
-address_book.find_by_name("z")
-address_book.find_by_phone_number("5")
-address_book.find_by_address("663 Folsom St.")
+# address_book.find_by_name("z")
+# address_book.find_by_phone_number("5")
+# address_book.find_by_address("663 Folsom St.")
