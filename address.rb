@@ -16,12 +16,12 @@ class Address
         case format
         when 'long'
             address += street_1 + "\n"
-            address += street_2 + "\n" unless street_2.nil?
+            address += street_2 + "\n" unless street_2.nil? || street_2.empty?
             address += "#{city}, #{state}, #{postal_code}"
         when 'short'
             address += "#{kind}: "
             address += street_1
-            if street_2
+            unless street_2.nil? || street_2.empty?
                 address += " " + street_2
             end
             address += ", #{city}, #{state}, #{postal_code}"

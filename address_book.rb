@@ -1,4 +1,5 @@
 require './contact'
+require 'yaml'
 
 class AddressBook
 
@@ -6,6 +7,7 @@ class AddressBook
 
     def initialize
         @contacts = []
+        open
     end
 
     # Clears the content on the screen.
@@ -21,6 +23,14 @@ class AddressBook
     def reset_screen!
         clear_screen!
         move_to_home!
+    end
+
+    def open(file_name = 'contacts.yml')
+        @contacts = YAML.load_file(file_name) if File.exist?('contacts.yml')
+    end
+
+    def save(file_name = 'contacts.yml')
+        File.open(file_name, 'w') { |file| file.write(contacts.to_yaml) }
     end
 
     def run
@@ -51,6 +61,7 @@ class AddressBook
                 print "Press enter at any time to return to the Main Menu: "
                 gets
             when 'e'
+                save
                 reset_screen!
                 break
             end
