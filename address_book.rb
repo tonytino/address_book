@@ -29,6 +29,7 @@ class AddressBook
             puts 'Address Book Main Menu'
             puts 'a: Add Contact'
             puts 'p: Print Address Book'
+            puts 's: Search Address Book'
             puts 'e: Exit'
             print 'Enter your choice: '
 
@@ -39,6 +40,16 @@ class AddressBook
                 add_contact
             when 'p'
                 print_contact_list
+            when 's'
+                reset_screen!
+                print 'Search for: '
+                search = gets.strip
+                find_by_name(search)
+                find_by_address(search)
+                find_by_phone_number(search)
+
+                print "Press enter at any time to return to the Main Menu: "
+                gets
             when 'e'
                 reset_screen!
                 break
@@ -158,7 +169,6 @@ class AddressBook
     end
 
     def print_results(search, results)
-        reset_screen!
         puts search
 
         results.each do |contact|
